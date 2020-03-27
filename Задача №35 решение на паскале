@@ -1,0 +1,64 @@
+//Задача 35
+
+{
+Число 197 называется круговым простым числом, потому что все вращения цифр: 197, 971 и 719 сами являются простыми.
+
+Существует тринадцать таких простых чисел ниже 100: 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79 и 97.
+
+Сколько круговых простых чисел меньше одного миллиона?
+}
+
+
+Function Prost(n:integer): boolean; //проверяет простое ли число
+var i: integer;
+var b: boolean;
+begin
+  b:=true;
+  for i:=2 to Round(sqrt(n)+1) do if n mod i=0 then begin b:=false; break; end;
+  Prost:=b;
+end;
+
+Function IntStr(s:string):integer;
+var i,r,sum: integer;
+begin
+for i:=1 to length(s) do
+  for r:=0 to 9 do if S[i]=r+'' then sum:=10*sum+r;
+intStr:=Sum;
+end;
+
+Function KrugProst(n: integer): boolean; //проверяет круговое число простое или нет
+var i,r: integer;
+var s: string;
+var b: boolean;
+begin
+s:=n+''; 
+b:=true;
+
+for i:=1 to length(s) do begin
+  if Prost(IntStr(s))=false then b:=false;
+  s:=s+s[1];
+  delete(s,1,1);
+  end;
+
+KrugProst:=b;
+end;
+
+Function test(s:string):boolean; //первичная проверка для оптимизации
+var b: boolean;
+var i: integer;
+begin
+  b:=true;
+  for i:=0 to 4 do
+  if pos((2*i)+'',s)>0 then b:=false;
+  
+  if length(s)<3 then b:=true;
+  test:=b;
+end;
+
+var kol,i,r: integer;
+
+begin
+
+for i:=1 to 1000000 do if test(i+'') then  if KrugProst(i) then kol:=kol+1;
+writeln(kol);
+end.
