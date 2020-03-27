@@ -1,0 +1,55 @@
+//задача 95 
+//https://projecteuler.net/problem=95
+
+
+
+function SumDel(n: integer): integer; //суммирует делители числа
+var i:integer;
+var sum: integer;
+begin
+  for i:=1 to (n div 2)+1 do if n mod i=0 then Sum:=Sum+i;
+  if Sum<1000000 then SumDel:=Sum else SumDel:=1;
+end;
+
+function length_line(n,n0: integer):integer; //считает сколько чисел цепочка чисел не зацикливается. -1 - цепочка выходит за миллион или зацикливается на совершенном числе
+var i,r,g,m: integer;
+var kol: integer;
+begin
+  i:=SumDel(n);
+
+  if i=n then length_line:=-1;
+  if i>1000000 then length_line:=-1000;
+  if i=1 then length_line:=-1000;
+  if i<>n then if i<1000000 then if i>1 then if i<>n0 then length_line:=length_line(i,n0)+1;
+  if i=n0 then length_line:=1;
+
+end;
+
+var max,i,r,g: integer;
+begin
+  max:=0;
+{
+g:=30724;
+for i:=1 to 60 do begin
+  writeln(g);
+  g:=SumDel(g);
+  
+  
+  end;
+
+readln();
+
+}
+
+  for i:=151000 to 1000000 do begin
+if i mod 1000=0 then writeln(i+' '+max);
+G:=SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(SumDel(i))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+
+   r:=length_line(G,G);
+  if r>max then begin
+  max:=r;
+  writeln('---'+i);
+  end;
+  end;
+writeln(max);
+end.
