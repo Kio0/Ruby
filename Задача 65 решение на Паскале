@@ -1,0 +1,42 @@
+//Задача 65
+//https://projecteuler.net/problem=65
+
+
+type drob=record //дробь
+  ch,zn: int64;
+end;
+
+function DD(n: integer): integer; //возвращает число последовательности номер n
+var D: integer;
+begin
+D:=1;
+if n mod 3=2 then D:=2*(n div 3)+2;
+DD:=D;
+end;
+
+function E(n: integer): drob; //значение i-ой итерации
+var D,D1: drob;
+var i,r,g: integer;
+begin
+d.ch:=1; 
+d.zn:=1;  
+ 
+ 
+  for i:=1 to n-2 do begin
+    g:=DD(n-i-1);
+    d.ch:=d.ch+g*d.zn;
+    r:=d.ch;
+    d.ch:=d.zn;
+    d.zn:=r;
+  end;
+  D.ch:=D.ch+D.zn*2;  
+  E:=D;
+
+
+end;
+
+begin
+
+  writeln(E(100));
+  writeln(2+1+8+3+4+1+4+9+2+3);
+end.
