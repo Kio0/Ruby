@@ -1,0 +1,99 @@
+{
+В электрической цепи используются исключительно идентичные конденсаторы одного и того же значения C.
+Конденсаторы могут быть подключены последовательно или параллельно для формирования дополнительных блоков, 
+которые затем могут быть подключены последовательно или параллельно с другими конденсаторами или другими частными 
+элементами для формирования более крупных блоков. подузлы и т. д. до конечной цепи.
+Используя эту простую процедуру и до n идентичных конденсаторов, мы можем создать схемы с диапазоном различных 
+общих емкостей. Например, используя до n = 3 конденсаторов по 60 F каждый, мы можем получить следующие 7 различных значений общей емкости:
+Если мы обозначим через D ( n ) количество различных значений общей емкости, которые мы можем получить при использовании до n равнозначных 
+конденсаторов и простой процедуре, описанной выше, мы имеем: D (1) = 1, D (2) = 3 , D (3) = 7 ...
+Найти D(18)
+}
+
+var i,r: integer;
+
+
+const Emk=1200;
+
+type Nabor=record
+  E: array[1..300000] of real; //набор возможных ёмкостей конденсаторов
+  kol: integer; //количество различных емкостей
+end;
+
+var DD: array[1..100] of Nabor;
+
+
+function Optim(n: nabor):nabor; //удаляет повторки из списка
+var i,r: integer;
+var g: real;
+var m: nabor;
+var b: boolean;
+begin
+  for i:=1 to n.kol do begin
+    b:=true;
+    for r:=1 to m.kol do if m.E[r]=n.E[i] then b:=false;
+    if  b=true then begin
+      m.kol:=m.kol+1;
+      m.E[m.kol]:=n.E[i];
+      
+    end;
+   
+  
+  end;
+  
+  //сортируем
+  for i:=1 to m.kol do 
+    for r:=1 to m.kol-1 do 
+      if m.E[r]<m.E[r+1] then begin
+        g:=m.E[r];
+        m.E[r]:=m.E[r+1];
+        m.E[r+1]:=g;        
+      end;
+  
+  
+  Optim:=m;
+end;
+
+function Pos(n1,n2: real):real;
+begin
+  pos:=1/((1/n1)+(1/n2));
+end;
+function Par(n1,n2: real): real;
+begin
+  Par:=n1+n2;
+end;
+
+
+function D(n: integer):Nabor; //возвращает набор возможных ёмкостей конденсаторов
+var m: nabor;
+var i: integer;
+begin
+  m.kol:=1;
+  m.E[1]:=Emk;
+  if n=1 then D:=m;
+  if n>1 then 
+    if DD[n].kol=0 then 
+      begin
+    m:=D(n-1);
+    for i:=1 to m.kol do begin
+      m.kol:=m.kol+2;
+      m.E[m.kol-1]:=Par(m.E[i],Emk);
+      m.E[m.kol]  :=Pos(m.E[i],Emk);     
+    end;
+          m:=Optim(m);
+          DD[n]:=m;
+          D:=m;
+  end;
+
+  if n>1 then 
+    if DD[n].kol>0 then D:=DD[n]; 
+
+end;
+
+
+
+
+begin
+writeln(D(18).kol);
+  
+end.
