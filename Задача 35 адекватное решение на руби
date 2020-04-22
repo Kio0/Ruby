@@ -1,0 +1,87 @@
+
+ include Math
+
+def prost(n) #возвращает 1 если число простое и один из его делителей в остальных случаях
+a=sqrt(n)+1
+b=a.round  #ищем верхнюю границу делителя
+r=1
+m=2
+while m<=b do
+if n% m==0 
+ r=m
+
+end
+m=m+1
+end
+r
+end
+
+def pov(n) #поворачивает число на 1
+m=n%10
+g=n/10
+m=m.to_s
+g=g.to_s
+str=m+g
+str=str.to_i
+
+end
+
+
+def krug(n) #возвращает true если число круговое
+b=true
+m=pov(n)  #если начальное число составное
+if prost(n)>1 
+b=false 
+end
+if prost(m)>1 
+b=false 
+end
+while m!=n do 
+m=pov(m)  #если один из поворотов составной
+if prost(m)>1 
+b=false 
+end
+end
+b
+end
+
+
+#  круговое число может состоять только из цифр 1,3,7 и 9. (числа 2 и 5 - исключения)
+Max=1000000
+Kol=4 #фиксируем однозначные числа
+n=9
+while Max>n do
+n=n+1
+str=n.to_s
+b=true
+#ищем запрещённые символы в строке
+if str.index("0")!=str.index("@") 
+b=false
+end
+if str.index("2")!=str.index("@") 
+b=false
+end
+if str.index("4")!=str.index("@") 
+b=false
+end
+if str.index("5")!=str.index("@") 
+b=false
+end
+if str.index("6")!=str.index("@") 
+b=false
+end
+if str.index("8")!=str.index("@") 
+b=false
+end
+
+if b
+if krug(n)
+Kol=Kol+1
+puts krug(19)
+end
+end
+
+
+end
+
+print Kol,"\n"
