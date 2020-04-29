@@ -1,0 +1,56 @@
+
+
+def sum(n)
+sumd=0
+m=1
+while m<n-1 do 
+    if n%m==0 
+      sumd=sumd+m
+    end
+m=m+1
+  end
+  sumd
+end
+
+def leng(n) #возвращает длину цепочки для числа
+kk=0
+kol=0
+m=n
+
+while (kol<30) and (m<1000000) and (m>100)  do
+m=sum(m)
+kol=kol+1
+if (m==n) and (kk==0)
+kk=kol
+end
+
+end
+
+kk
+end
+
+
+
+def otvet()
+n=14000
+max=1 #максимальная длина цепочки
+idmax=1
+while n<15000
+n=n+1
+if leng(n)>max
+max= leng(n)
+idmax=n
+end
+
+end
+
+idmax
+end
+
+puts(otvet());
+
+
+#Ответ:
+#14316
+
+
